@@ -11,7 +11,7 @@ JWT_ALGORITHM = 'HS256'
 app = Flask(__name__)
 
 
-@app.route('/success/<token>')
+@app.route('/success')
 def success(token):
     if request.method == 'POST':
         username = request.form['username']
@@ -20,7 +20,8 @@ def success(token):
         username = request.args.get('username')
         password = request.args.get('password')
 
-    return render_template('hello.html')
+    # return render_template('hello.html')
+    return "hello"
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -37,7 +38,8 @@ def login():
         'password': password
     }
     jwt_token = jwt.encode(payload, JWT_SECRET, JWT_ALGORITHM)
-    return redirect(url_for('success', token=jwt_token))
+    # return redirect(url_for('success', token=jwt_token))
+    return  redirect(url_for('success'))
 
 
 if __name__ == '__main__':
