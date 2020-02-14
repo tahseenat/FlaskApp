@@ -21,17 +21,24 @@ app = Flask(__name__)
 # login function
 @app.route('/login', methods=['POST'])
 def login():
-    username = request.json['username']
-    password = request.json['password']
-    payload = {
-        'username': username,
-        'password': password
-    }
-    jwt_token = jwt.encode(payload, JWT_SECRET, JWT_ALGORITHM)
-    dict = {
-        'token': str(jwt_token)
-    }
-    return dict
+    try:
+        username = request.json['username']
+        password = request.json['password']
+
+        if len(username) > 1 and len(password) > 3:
+            payload = {
+                'username': username,
+                'password': password
+            }
+            jwt_token = jwt.encode(payload, JWT_SECRET, JWT_ALGORITHM)
+            dict = {
+                'token': str(jwt_token)
+            }
+            return dict
+        else:
+            return "Username/Password invalid"
+    except:
+        return "Bad Request"
 
 
 @app.route('/image_thumbnail', methods=['POST'])
