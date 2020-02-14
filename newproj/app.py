@@ -24,31 +24,38 @@ def login():
     try:
         username = request.json['username']
         password = request.json['password']
-
-        if len(username) > 1 and len(password) > 3:
-            payload = {
-                'username': username,
-                'password': password
-            }
-            jwt_token = jwt.encode(payload, JWT_SECRET, JWT_ALGORITHM)
-            dict = {
-                'token': str(jwt_token)
-            }
-            return dict
-        else:
-            return "Username/Password invalid"
     except:
         return "Bad Request"
+
+    if len(username) > 0 and len(password) > 0:
+        payload = {
+            'username': username,
+            'password': password
+        }
+        jwt_token = jwt.encode(payload, JWT_SECRET, JWT_ALGORITHM)
+        dict = {
+            'token': str(jwt_token)
+        }
+        return dict
+    else:
+        return "Username/Password length invalid"
 
 
 @app.route('/image_thumbnail', methods=['POST'])
 def image_thumbnail():
-    # token = request.json['token']
-    image_url = request.json['image_url']
+    try:
+        token = request.json['token']
+        image_url = request.json['image_url']
+    except:
+        return "Bad Request"
 
-    f = open(img_name, 'wb')
-    f.write(urllib.request.urlopen(image_url).read())
-    f.close()
+    try:
+        f = open(img_name, 'wb')
+        f.write(urllib.request.urlopen(image_url).read())
+        f.close()
+    except:
+        return "Invalid URL"
+
     image_name = cv2.imread(img_name, cv2.IMREAD_UNCHANGED)
     thumbnail_image = cv2.resize(image_name, dim, interpolation=cv2.INTER_AREA)
     cv2.imwrite("thumb.jpg", thumbnail_image)
