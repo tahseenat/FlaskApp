@@ -34,6 +34,7 @@ def token_required(f):
             return jsonify({'message': 'Token is missing'}), 403
         try:
             data = jwt.decode(token, JWT_SECRET)
+
         except:
             return jsonify({'message': 'Token is invalid'}), 403
         return f(*args, **kwargs)
@@ -56,10 +57,6 @@ def login():
             'username': username,
             'password': password
         }
-        header = {
-            "alg": JWT_ALGORITHM,
-            "typ": "JWT"
-        }
         jwt_token = jwt.encode(payload, JWT_SECRET, JWT_ALGORITHM)
         return jsonify({'token': jwt_token.decode('UTF-8')})
     else:
@@ -68,6 +65,7 @@ def login():
 
 # json thumbnail generator
 # http: // 127.0.0.1: 5000 / image_thumbnail?token = secret
+# test image url: http://www.gunnerkrigg.com//comics/00000001.jpg
 @app.route('/image_thumbnail', methods=['POST'])
 @token_required
 def image_thumbnail():
@@ -103,11 +101,11 @@ def json_patching():
     data = request.json
     patch = jsonpatch.JsonPatch([
         {'op': 'add', 'path': '/foo', 'value': 'bar'},
-        {'op': 'add', 'path': '/baz', 'value': [1, 2, 3]},
-        {'op': 'remove', 'path': '/baz/1'},
-        {'op': 'test', 'path': '/baz', 'value': [1, 3]},
-        {'op': 'replace', 'path': '/baz/0', 'value': 42},
-        {'op': 'remove', 'path': '/baz/1'},
+        {'op': 'add', 'path': '/baz', 'value': [1, 2, 3]}
+        # {'op': 'remove', 'path': '/baz/1'},
+        # {'op': 'test', 'path': '/baz', 'value': [1, 3]},
+        # {'op': 'replace', 'path': '/baz/0', 'value': 42},
+        # {'op': 'remove', 'path': '/baz/1'},
     ])
     result = patch.apply(data)
 
