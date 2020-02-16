@@ -6,12 +6,17 @@ import cv2
 from functools import wraps
 import jsonpatch
 
+# specify the secret string you want to encode the json with
 JWT_SECRET = 'secret'
+# specify the algorithm for encoding
 JWT_ALGORITHM = 'HS256'
 
+# name of the original file saved in the dir
 img_name = "original.jpg"
+# name of the thumbnail file
 thumbnail_name = "thumb.jpg"
 
+# specify the dimension of the thumbnail
 width = 50
 height = 50
 dim = (width, height)
@@ -20,6 +25,7 @@ dim = (width, height)
 app = Flask(__name__)
 
 
+# this function can be used to authorize the request, only valid request will pass
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -90,6 +96,7 @@ def image_thumbnail():
 
 
 # json patching
+# http: // 127.0.0.1: 5000 / json_patching?token = secret
 @app.route('/json_patching', methods=['POST'])
 @token_required
 def json_patching():
