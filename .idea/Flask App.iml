@@ -4,5 +4,8 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="Meta_Search_Engine" />
+    <orderEntry type="module" module-name="Search application" />
+    <orderEntry type="module" module-name="Shopee" />
   </component>
 </module>

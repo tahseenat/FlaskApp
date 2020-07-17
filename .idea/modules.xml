@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Flask App.iml" filepath="$PROJECT_DIR$/.idea/Flask App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Meta_Search_Engine/.idea/Meta_Search_Engine.iml" filepath="$PROJECT_DIR$/../Meta_Search_Engine/.idea/Meta_Search_Engine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Search_application/.idea/Search application.iml" filepath="$PROJECT_DIR$/../Search_application/.idea/Search application.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Shopee/.idea/Shopee.iml" filepath="$PROJECT_DIR$/../Shopee/.idea/Shopee.iml" />
     </modules>
   </component>
 </project>
